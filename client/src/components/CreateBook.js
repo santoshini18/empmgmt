@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-const CreateBook =(props) => {
-    const navigate =useNavigate()
-    // const navigate = useNavigate();
+const CreateBook = (props) => {
+  // Define the state with useState hook
+  const navigate = useNavigate();
   const [book, setBook] = useState({
     title: '',
     isbn: '',
@@ -14,39 +14,38 @@ const CreateBook =(props) => {
     description: '',
     published_date: '',
     publisher: '',
-})
-const onChange = (e) =>{
-setBook({
-    ...book, [e.target.name]: e.target.value
-})
-}
+  });
 
-const onSubmit = (e) => {
-e.preventDefault()
+  const onChange = (e) => {
+    setBook({ ...book, [e.target.name]: e.target.value });
+  };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
 
+    axios
+      .post('https://5000-santoshini18-empmgmt-fwmpgfrnhdm.ws-us92.gitpod.io/api/books', book)
+      .then((res) => {
+        setBook({
+          title: '',
+          isbn: '',
+          author: '',
+          description: '',
+          published_date: '',
+          publisher: '',
+        });
 
-axios
-.post("https://3000-santoshini18-empmgmt-fwmpgfrnhdm.ws-us90.gitpod.io/api/books",book)
-.then( (res) => {
- setBook({
-    title: '',
-    isbn: '',
-    author: '',
-    description: '',
-    published_date: '',
-    publisher: '',
- })
-navigate('/')
+        // Push to /
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log('Error in CreateBook!');
+        console.log('The error is -> ')
+        console.log(err)
+      });
+  };
 
-
-})
-.catch( (err) =>{
-    console.log('failed to create new book')
-    console.log(err)
-} )
-}
-return (
+  return (
     <div className='CreateBook'>
       <div className='container'>
         <div className='row'>
@@ -54,12 +53,6 @@ return (
             <br />
             <Link to='/' className='btn btn-outline-warning float-left'>
               Show BooK List
-            </Link>
-            <Link
-              to='/'
-              className='btn btn-outline-warning float-right'
-            >
-             Home page
             </Link>
           </div>
           <div className='col-md-8 m-auto'>
@@ -145,14 +138,4 @@ return (
   );
 };
 
-
-
-
-
-
-// function CreateBook() {
-//  return (
-// <div> <h1>CreateBook</h1></div>
-// )
-// }
-export default CreateBook
+export default CreateBook;

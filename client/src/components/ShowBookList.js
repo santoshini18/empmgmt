@@ -9,12 +9,13 @@ function ShowBookList() {
 
   useEffect(() => {
     axios
-      .get('https://3001-santoshini18-empmgmt-fwmpgfrnhdm.ws-us90.gitpod.io/create-book/api/books')
+      .get('https://5000-santoshini18-empmgmt-fwmpgfrnhdm.ws-us92.gitpod.io/api/books')
       .then((res) => {
         setBooks(res.data);
       })
       .catch((err) => {
-        console.log('Error from ShowBookList');
+        console.log('Error from ShowBookList ->');
+        console.log(err)
       });
   }, []);
 
@@ -39,7 +40,6 @@ function ShowBookList() {
             >
               + Add New Book
             </Link>
-           
             <br />
             <br />
             <hr />
@@ -53,12 +53,3 @@ function ShowBookList() {
 }
 
 export default ShowBookList;
-
-
-
-
-
-
-
-
-

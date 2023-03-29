@@ -18,10 +18,10 @@ function UpdateBookInfo(props) {
 
   useEffect(() => {
     axios
-      .get(`https://3000-santoshini18-empmgmt-fwmpgfrnhdm.ws-us92.gitpod.io/`)
+      .get(`https://5000-santoshini18-empmgmt-fwmpgfrnhdm.ws-us92.gitpod.io/api/books/${id}`)
       .then((res) => {
         setBook({
-          title: res.data.title, 
+          title: res.data.title,
           isbn: res.data.isbn,
           author: res.data.author,
           description: res.data.description,
@@ -30,7 +30,8 @@ function UpdateBookInfo(props) {
         });
       })
       .catch((err) => {
-        console.log('Error from UpdateBookInfo');
+        console.log('Error from UpdateBookInfo GET request');
+        console.log(err)
       });
   }, [id]);
 
@@ -51,12 +52,13 @@ function UpdateBookInfo(props) {
     };
 
     axios
-      .put(`https://3000-santoshini18-empmgmt-fwmpgfrnhdm.ws-us92.gitpod.io`, data)
+      .put(`https://5000-santoshini18-empmgmt-fwmpgfrnhdm.ws-us92.gitpod.io/api/books/${id}`, data)
       .then((res) => {
         navigate(`/show-book/${id}`);
       })
       .catch((err) => {
-        console.log('Error in UpdateBookInfo!');
+        console.log('Error in UpdateBookInfo PUT request ->');
+        console.log(err)
       });
   };
 
